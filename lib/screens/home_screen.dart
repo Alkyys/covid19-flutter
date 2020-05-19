@@ -4,15 +4,25 @@ import 'package:covid/services/api.dart';
 import 'package:covid/widgets/info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../contants.dart';
 import 'confirmed_cases.dart';
 import 'new_cases.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Map data = {};
 
   @override
   Widget build(BuildContext context) {
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+    print(data);
+
     return Scaffold(
       appBar: buildAppBar(),
       body: Column(
@@ -33,9 +43,9 @@ class HomeScreen extends StatelessWidget {
               spacing: 20,
               children: <Widget>[
                 InfoCard(
-                  title: "Confirmed Cases",
+                  title: "Cas Confirmé",
                   iconColor: Color(0xFFFF8C00),
-                  effectedNum: 177240,
+                  effectedNum: data["confirmedCase"],
                   press: () {
                     Navigator.push(
                       context,
@@ -48,9 +58,9 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 InfoCard(
-                  title: "Total Deaths",
+                  title: "Décès Totaux",
                   iconColor: Color(0xFFFF2D55),
-                  effectedNum: 75,
+                  effectedNum: data["totalDeaths"],
                   press: () {
                     Navigator.push(
                       context,
@@ -63,9 +73,9 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 InfoCard(
-                  title: "Total Recovered",
+                  title: "Guérisons Totaux",
                   iconColor: Color(0xFF50E3C2),
-                  effectedNum: 689,
+                  effectedNum: data["totalRecovered"],
                   press: () {
                     Navigator.push(
                       context,
@@ -78,9 +88,9 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 InfoCard(
-                  title: "New Cases",
+                  title: "Nouveau Cas",
                   iconColor: Color(0xFF5856D6),
-                  effectedNum: 75,
+                  effectedNum: data["newCase"],
                   press: () {
                     Navigator.push(
                       context,
@@ -95,6 +105,9 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 10),
+          Center(child: Text("Dernière mise à jour")),
+          Center(child: Text(DateFormat.yMMMEd().format(data["lastUpdate"]))),
           SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -103,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Preventions",
+                    "Prévention",
                     style: Theme.of(context)
                         .textTheme
                         .title
@@ -128,15 +141,15 @@ class HomeScreen extends StatelessWidget {
       children: <Widget>[
         PreventitonCard(
           svgSrc: "assets/svg/hand_wash.svg",
-          title: "Wash Hands",
+          title: "Lavage\ndes mains",
         ),
         PreventitonCard(
           svgSrc: "assets/svg/use_mask.svg",
-          title: "Use Masks",
+          title: "Utiliser\nun masque",
         ),
         PreventitonCard(
           svgSrc: "assets/svg/Clean_Disinfect.svg",
-          title: "Clean Disinfect",
+          title: "Désinfection ",
         ),
       ],
     );
@@ -171,14 +184,14 @@ class HomeScreen extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Dial 999 for \nMedical Help!\n",
+                    text: "Trouver un\ncentre de dépistage \n",
                     style: Theme.of(context)
                         .textTheme
                         .title
                         .copyWith(color: Colors.white),
                   ),
                   TextSpan(
-                    text: "If any symptoms appear",
+                    text: "Si des symptômes apparaissent",
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
                     ),
@@ -203,6 +216,11 @@ class HomeScreen extends StatelessWidget {
 
   AppBar buildAppBar() {
     return AppBar(
+      title: Text(
+        'France',
+        style: TextStyle(color: PrimaryColorL),
+      ),
+      centerTitle: true,
       backgroundColor: PrimaryColorL.withOpacity(.03),
       elevation: 0,
       leading: IconButton(
@@ -222,6 +240,7 @@ class HomeScreen extends StatelessWidget {
 class PreventitonCard extends StatelessWidget {
   final String svgSrc;
   final String title;
+
   const PreventitonCard({
     Key key,
     this.svgSrc,
@@ -236,7 +255,7 @@ class PreventitonCard extends StatelessWidget {
         Text(
           title,
           style:
-          Theme.of(context).textTheme.body2.copyWith(color: PrimaryColorL),
+              Theme.of(context).textTheme.body2.copyWith(color: PrimaryColorL),
         )
       ],
     );

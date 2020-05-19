@@ -17,7 +17,9 @@ class _LoadingState extends State<Loading> {
       'confirmedCase': instance.confirmedCase,
       'totalDeaths': instance.totalDeaths,
       'totalRecovered': instance.totalRecovered,
-      'newCase': instance.newCase
+      'newCase': instance.newCase,
+      'lastUpdate': instance.lastUpdate,
+      'lastWeek': instance.lastWeek
     });
   }
 

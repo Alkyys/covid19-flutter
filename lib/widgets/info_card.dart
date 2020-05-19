@@ -78,7 +78,7 @@ class InfoCard extends StatelessWidget {
                                         ),
                               ),
                               TextSpan(
-                                text: "People",
+                                text: "Cas",
                                 style: TextStyle(
                                   fontSize: 12,
                                   height: 2,
@@ -89,7 +89,7 @@ class InfoCard extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: LineReportChart(),
+                        child: LineReportChart(iconColor:iconColor),
                       ),
                     ],
                   ),
