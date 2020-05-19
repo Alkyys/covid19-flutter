@@ -1,4 +1,5 @@
 import 'package:covid/screens/home_screen.dart';
+import 'package:covid/screens/loading.dart';
 import 'package:flutter/material.dart';
 
 import 'contants.dart';
@@ -10,6 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Loading(),
+        '/home': (context) => HomeScreen(),
+      },
       debugShowCheckedModeBanner: false,
       title: 'Covid-19 App',
       theme: ThemeData(
@@ -17,7 +23,6 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: BackgroundColorL,
         textTheme: Theme.of(context).textTheme.apply(displayColor: TextColorL),
       ),
-      home: HomeScreen(),
     );
   }
 }

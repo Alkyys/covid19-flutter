@@ -1,6 +1,6 @@
-
 import 'package:covid/screens/total_deaths.dart';
 import 'package:covid/screens/total_recovered.dart';
+import 'package:covid/services/api.dart';
 import 'package:covid/widgets/info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +10,7 @@ import 'confirmed_cases.dart';
 import 'new_cases.dart';
 
 class HomeScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                 InfoCard(
                   title: "Confirmed Cases",
                   iconColor: Color(0xFFFF8C00),
-                  effectedNum: 1062,
+                  effectedNum: 177240,
                   press: () {
                     Navigator.push(
                       context,
